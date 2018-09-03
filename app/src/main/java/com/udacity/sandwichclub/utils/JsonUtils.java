@@ -30,6 +30,9 @@ public class JsonUtils {
 
     public static void jsonArrayToList(List<String> list, JSONArray array) {
         if (array != null) {
+            if(array.length() == 0){
+                return;
+            }
             for (int i = 0; i < array.length(); i++) {
                 try {
                     list.add(array.getString(i));
