@@ -14,15 +14,27 @@ import com.udacity.sandwichclub.utils.JsonUtils;
 
 import org.json.JSONException;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_POSITION = "extra_position";
     private static final int DEFAULT_POSITION = -1;
+    @BindView(R.id.also_known_tv)
+    TextView alsoKnownAsTv;
+    @BindView(R.id.origin_tv)
+    TextView originTv;
+    @BindView(R.id.ingredients_tv)
+    TextView ingredientsTv;
+    @BindView(R.id.description_tv)
+    TextView descriptionTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        ButterKnife.bind(this);
 
         ImageView ingredientsIv = findViewById(R.id.image_iv);
 
@@ -57,6 +69,8 @@ public class DetailActivity extends AppCompatActivity {
         populateUI(sandwich);
         Picasso.with(this)
                 .load(sandwich.getImage())
+                .placeholder(R.mipmap.ic_launcher_round)
+                .error(R.mipmap.ic_launcher_round)
                 .into(ingredientsIv);
 
         setTitle(sandwich.getMainName());
@@ -68,15 +82,13 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void populateUI(Sandwich sandwich) {
-        TextView alsoKnownAsTv = (TextView)  findViewById(R.id.also_known_tv);
+        //TextView alsoKnownAsTv = (TextView)  findViewById(R.id.also_known_tv);
         alsoKnownAsTv.setText(sandwich.getAlsoKnownAs().toString());
-        TextView originTv = (TextView) findViewById(R.id.origin_tv);
+        //TextView originTv = (TextView) findViewById(R.id.origin_tv);
         originTv.setText(sandwich.getPlaceOfOrigin());
-        TextView placeOfOriginTv = (TextView) findViewById(R.id.origin_tv);
-        placeOfOriginTv.setText(sandwich.getPlaceOfOrigin());
-        TextView ingredientsTv = (TextView) findViewById(R.id.ingredients_tv);
+        //TextView placeOfOriginTv = (TextView) findViewById(R.id.origin_tv);
         ingredientsTv.setText(sandwich.getIngredients().toString());
-        TextView descriptionTv = (TextView) findViewById(R.id.description_tv);
+        //TextView descriptionTv = (TextView) findViewById(R.id.description_tv);
         descriptionTv.setText(sandwich.getDescription());
     }
 }

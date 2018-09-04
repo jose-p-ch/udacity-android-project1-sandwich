@@ -14,13 +14,13 @@ public class JsonUtils {
     public static Sandwich parseSandwichJson(String json) throws JSONException {
         JSONObject jSandwich = new JSONObject(json);
         JSONObject jSandwichName = jSandwich.getJSONObject("name");
-        String mainName = jSandwichName.getString("mainName");
+        String mainName = jSandwichName.optString("mainName");
         ArrayList<String> alsoKnownAs = new ArrayList<String>();
         JSONArray jAlsoKnownAs = jSandwichName.getJSONArray("alsoKnownAs");
         jsonArrayToList(alsoKnownAs, jAlsoKnownAs);
-        String placeOfOrigin = jSandwich.getString("placeOfOrigin");
-        String description = jSandwich.getString("description");
-        String image = jSandwich.getString("image");
+        String placeOfOrigin = jSandwich.optString("placeOfOrigin");
+        String description = jSandwich.optString("description");
+        String image = jSandwich.optString("image");
         ArrayList<String> ingredients = new ArrayList<String>();
         JSONArray jIngredients = jSandwich.getJSONArray("ingredients");
         jsonArrayToList(ingredients, jIngredients);
@@ -34,11 +34,7 @@ public class JsonUtils {
                 return;
             }
             for (int i = 0; i < array.length(); i++) {
-                try {
-                    list.add(array.getString(i));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                list.add(array.optString(i));
             }
         }
         return;
